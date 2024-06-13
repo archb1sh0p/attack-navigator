@@ -42,7 +42,7 @@ def main():
         reader = csv.DictReader(csvfile, delimiter=",")
         for row in reader:
             # score each technique based on a simple formula
-            score = int(row["Software"]) #Convert "score" to an integer (assuming it's numeric), previously this was wrapping the score in quotes which just breaks
+            score = int(row["NumericalScore"]) #Convert "score" to an integer (assuming it's numeric), previously this was wrapping the score in quotes which just breaks
             technique = {
                 "techniqueID": row["TechID"],
                 "score": score
