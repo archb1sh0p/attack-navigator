@@ -9,8 +9,8 @@ import json
 import sys
 
 # Static ATT&CK Navigator layer JSON fields
-LAYER_VERSION = "2.2"
-NAV_VERSION = "2.3.2"
+LAYER_VERSION = "4.5"
+NAV_VERSION = "4.8.1"
 NAME = "example"
 DESCRIPTION = "hello, world"
 DOMAIN = "enterprise-attack"
@@ -42,20 +42,19 @@ def main():
         reader = csv.DictReader(csvfile, delimiter=",")
         for row in reader:
             # score each technique based on a simple formula
+            score = int(row["Software"]) #Convert "score" to an integer (assuming it's numeric), previously this was wrapping the score in quotes which just breaks
             technique = {
                 "techniqueID": row["TechID"],
-                "score": row["Software"]
+                "score": score
             }
 
             layer_json["techniques"].append(technique)
-
-
     # add a color gradient (white -> red) to layer
     # ranging from zero (white) to the maximum score in the file (red)
     layer_json["gradient"] = {
         "colors": [
             "#ffffff",
-            "#ff6666"
+            "#6678ff"
         ],
         "minValue": 0,
         "maxValue": max([technique["score"] for technique in layer_json["techniques"]])
