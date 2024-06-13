@@ -28,7 +28,7 @@ def main():
     # Base ATT&CK Navigator layer
     layer_json = {
         "versions": {
-            "layer": VERSION,
+            "layer": LAYER_VERSION,
             "navigator": NAV_VERSION
         },
         "name": NAME,
@@ -38,13 +38,13 @@ def main():
     }
 
     # parse csv file, calculating a score for each technique and adding that to the layer
-    with open(args.input_fn, "rb") as csvfile:
+    with open(args.input_fn, "r") as csvfile:
         reader = csv.DictReader(csvfile, delimiter=",")
         for row in reader:
             # score each technique based on a simple formula
             technique = {
                 "techniqueID": row["TechID"],
-                "score": (int(row["Software"]) + int(row["Groups"]))*2 + int(row["References"])
+                "score": row["Software"]
             }
 
             layer_json["techniques"].append(technique)
